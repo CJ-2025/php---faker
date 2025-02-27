@@ -47,4 +47,23 @@ for ($i = 1; $i <= 200; $i++) {
     $stmt->execute();
 }
 $stmt->close();
+$stmt = $mysqli->prepare("INSERT INTO transaction (employee_id, office_id, datelog, action, remarks, documentcode) 
+                          VALUES (?, ?, ?, ?, ?, ?)");
+
+for ($i = 1; $i <= 500; $i++) {
+    $employee_id = rand(1, 200);
+    $office_id = rand(1, 50);
+    $datelog = $faker->dateTimeBetween('-2years', 'now')->format('Y-m-d H:i:s');
+    $action = $faker->word;
+    $remarks = $faker->sentence;
+    $documentcode = strtoupper($faker->bothify('DOC-####'));
+
+    $stmt->bind_param("iissss", $employee_id, $office_id, $datelog, $action, $remarks, $documentcode);
+    $stmt->execute();
+}
+$stmt->close();
+
+
+$mysqli->close();
+echo "Data inserted successfully into the ph_company database!";
 ?>
