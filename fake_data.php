@@ -29,5 +29,22 @@ for ($i = 1; $i <= 50; $i++) {
     $stmt->bind_param("isssssss", $i, $name, $contactnum, $email, $address, $city, $country, $postal);
     $stmt->execute();
 }
+$stmt->close();
 
+
+
+
+$stmt = $mysqli->prepare("INSERT INTO employee (last_name, first_name, office_id, address) 
+                          VALUES (?, ?, ?, ?)");
+
+for ($i = 1; $i <= 200; $i++) {
+    $last_name = $faker->lastName;
+    $first_name = $faker->firstName;
+    $office_id = rand(1, 50);
+    $address = $faker->address;
+
+    $stmt->bind_param("ssis", $last_name, $first_name, $office_id, $address);
+    $stmt->execute();
+}
+$stmt->close();
 ?>
