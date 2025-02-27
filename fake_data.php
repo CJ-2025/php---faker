@@ -17,5 +17,17 @@ $mysqli->query("SET FOREIGN_KEY_CHECKS = 1");
 $stmt = $mysqli->prepare("INSERT INTO office (id, name, contactnum, email, address, city, country, postal) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
+for ($i = 1; $i <= 50; $i++) {
+    $name = $faker->company;
+    $contactnum = $faker->phoneNumber;
+    $email = $faker->companyEmail;
+    $address = $faker->address;
+    $city = $faker->city;
+    $country = "Philippines";
+    $postal = $faker->postcode;
+
+    $stmt->bind_param("isssssss", $i, $name, $contactnum, $email, $address, $city, $country, $postal);
+    $stmt->execute();
+}
 
 ?>
