@@ -14,4 +14,8 @@ $mysqli->query("TRUNCATE TABLE employee");
 $mysqli->query("TRUNCATE TABLE transaction");
 $mysqli->query("SET FOREIGN_KEY_CHECKS = 1");
 
+$stmt = $mysqli->prepare("INSERT INTO office (id, name, contactnum, email, address, city, country, postal) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+
 ?>
